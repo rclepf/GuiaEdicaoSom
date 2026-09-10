@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dicas gerais · Edição de Som para Jogos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #10151a; --bg-raised: #161d24; --bg-panel: #1c252d; --line: #2d3944;
+  --text: #eaf2f1; --text-dim: #a7bdbd; --text-faint: #6c8686;
+  --accent: #5cf3ea; --accent-dim: #2f9e97; --warn: #f2a65c; --good: #7dd88a;
+  --radius: 6px;
+  --display: 'Sora', sans-serif; --body: 'Inter', sans-serif; --mono: 'Space Mono', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+body{margin:0; background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.65; font-size:16px;}
+a{color:var(--accent);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+.topbar{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.9rem 1.75rem; background:rgba(16,21,26,0.9); backdrop-filter: blur(10px); border-bottom:1px solid var(--line); flex-wrap:wrap;}
+.topbar .brand{font-family:var(--display); font-weight:700; font-size:1rem; color:var(--text); display:flex; align-items:center; gap:0.6rem; text-decoration:none;}
+.topbar .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent); box-shadow:0 0 10px var(--accent); flex-shrink:0;}
+.topnav{display:flex; gap:1.3rem; flex-wrap:wrap;}
+.topnav a{color:var(--text-dim); text-decoration:none; font-size:0.84rem; font-family:var(--mono); transition:color 0.15s;}
+.topnav a:hover, .topnav a.active{color:var(--accent);}
+.wrap{max-width:900px; margin:0 auto; padding:0 1.75rem;}
+.pagehead{padding:3.2rem 0 2.5rem;}
+.pagehead .kicker{font-family:var(--mono); color:var(--accent); font-size:0.85rem; margin-bottom:1rem;}
+.pagehead h1{font-family:var(--display); font-size:clamp(1.8rem, 4.5vw, 2.6rem); line-height:1.15; font-weight:800; margin:0 0 1rem; max-width:22ch;}
+.pagehead p.lead{font-size:1.05rem; color:var(--text-dim); max-width:62ch; margin:0;}
+section{padding:2.8rem 0; border-top:1px solid var(--line);}
+.sec-head{display:flex; align-items:baseline; gap:0.8rem; margin-bottom:1.4rem; flex-wrap:wrap;}
+.sec-num{font-family:var(--mono); color:var(--accent); font-size:0.9rem;}
+.sec-head h2{font-family:var(--display); font-size:1.45rem; margin:0; font-weight:700;}
+p{color:var(--text-dim);}
+.lead-in{color:var(--text); font-size:1.02rem;}
+.trouble-grid{display:grid; gap:0.9rem; margin:1.6rem 0;}
+.trouble-item{display:grid; grid-template-columns:1fr 1fr; gap:1rem; background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+@media (max-width:640px){ .trouble-item{grid-template-columns:1fr;} }
+.trouble-item .prob, .trouble-item .fix{padding:1rem 1.2rem;}
+.trouble-item .prob{border-right:1px solid var(--line); background:rgba(242,166,92,0.06);}
+@media (max-width:640px){ .trouble-item .prob{border-right:none; border-bottom:1px solid var(--line);} }
+.trouble-item .fix{background:rgba(125,216,138,0.06);}
+.trouble-item .tag{font-family:var(--mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; display:block; margin-bottom:0.35rem;}
+.trouble-item .prob .tag{color:var(--warn);}
+.trouble-item .fix .tag{color:var(--good);}
+.trouble-item p{margin:0; font-size:0.86rem; color:var(--text);}
+.checklist{display:grid; gap:0.6rem; margin:1.6rem 0;}
+.check-row{display:grid; grid-template-columns:22px 1fr; gap:0.8rem; align-items:start; padding:0.65rem 0.9rem; background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius);}
+.check-row .box{width:16px; height:16px; border:1.5px solid var(--accent); border-radius:4px; margin-top:0.15rem;}
+.check-row p{margin:0; font-size:0.88rem; color:var(--text);}
+.callout{background:var(--bg-raised); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0; padding:1.1rem 1.4rem; margin:1.5rem 0; font-size:0.92rem;}
+.callout strong{color:var(--accent); font-family:var(--mono); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; display:block; margin-bottom:0.4rem;}
+.callout p{margin:0; color:var(--text);}
+.handoff{display:grid; grid-template-columns:1fr auto 1fr; gap:1.2rem; align-items:center; margin:1.8rem 0;}
+@media (max-width:640px){ .handoff{grid-template-columns:1fr;} }
+.handoff-card{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.3rem 1.4rem; text-align:center;}
+.handoff-card.done{border-color:var(--good);}
+.handoff-card.next{border-color:var(--accent);}
+.handoff-card h3{font-family:var(--display); font-size:1.05rem; margin:0 0 0.4rem;}
+.handoff-card p{margin:0; font-size:0.85rem; color:var(--text-dim);}
+.handoff-arrow{text-align:center; color:var(--text-faint); font-size:1.4rem;}
+.foot-nav{padding:2.6rem 0 3.5rem; border-top:1px solid var(--line);}
+.foot-nav-inner{display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap;}
+.foot-prev, .foot-next{text-decoration:none; display:flex; flex-direction:column; gap:0.25rem;}
+.foot-next{align-items:flex-end;}
+.foot-prev .fn-label, .foot-next .fn-label{font-family:var(--mono); color:var(--text-faint); font-size:0.72rem; text-transform:uppercase;}
+.foot-prev .fn-title, .foot-next .fn-title{font-family:var(--display); color:var(--text); font-size:1.05rem; font-weight:700;}
+.foot-prev:hover .fn-title, .foot-next:hover .fn-title{color:var(--accent);}
+.foot-meta{text-align:center; color:var(--text-faint); font-size:0.76rem; margin-top:2.4rem; font-family:var(--mono);}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Edição de Som para Jogos</a>
+  <nav class="topnav" aria-label="Navegação da página">
+    <a href="parte-1-o-que-e.html">01 O que é</a>
+    <a href="parte-2-gravacao.html">02 Gravação</a>
+    <a href="parte-3-edicao.html">03 Edição de clipes</a>
+    <a href="parte-4-sound-design.html">04 Sound design</a>
+    <a href="parte-5-montagem-guiada.html">05 Montagem guiada</a>
+    <a href="parte-6-dicas.html" class="active">06 Dicas</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="pagehead">
+    <p class="kicker">Parte 06 de 06 · Última parte deste guia</p>
+    <h1>Dicas gerais e handoff para a mixagem</h1>
+    <p class="lead">Erros comuns de quem está começando a editar som, um checklist final, e a passagem de bastão para o Guia de Mixagem.</p>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Erros comuns e como evitar</h2></div>
+    <div class="trouble-grid">
+      <div class="trouble-item">
+        <div class="prob"><span class="tag">Erro comum</span><p>Tentar mixar (ajustar EQ, compressão) enquanto ainda está editando/organizando.</p></div>
+        <div class="fix"><span class="tag">Alternativa</span><p>Termine toda a organização e posicionamento primeiro — mixagem é a última etapa, não uma paralela.</p></div>
+      </div>
+      <div class="trouble-item">
+        <div class="prob"><span class="tag">Erro comum</span><p>Usar dezenas de efeitos sonoros diferentes "para não faltar nada".</p></div>
+        <div class="fix"><span class="tag">Alternativa</span><p>Poucos efeitos bem escolhidos comunicam melhor do que uma trilha poluída (Parte 04).</p></div>
+      </div>
+      <div class="trouble-item">
+        <div class="prob"><span class="tag">Erro comum</span><p>Não organizar arquivos, deixando tudo solto numa única pasta.</p></div>
+        <div class="fix"><span class="tag">Alternativa</span><p>Estrutura de pastas simples (Parte 03) evita perder tempo procurando arquivos no meio do projeto.</p></div>
+      </div>
+      <div class="trouble-item">
+        <div class="prob"><span class="tag">Erro comum</span><p>Ignorar a licença de um efeito sonoro baixado da internet.</p></div>
+        <div class="fix"><span class="tag">Alternativa</span><p>Prefira a biblioteca embutida do Audition/Premiere, ou confira a licença Creative Commons antes de usar (Parte 04).</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Checklist antes de passar para a mixagem</h2></div>
+    <div class="checklist">
+      <div class="check-row"><div class="box"></div><p>Narração gravada com nível seguro e sem clipping (Parte 02)</p></div>
+      <div class="check-row"><div class="box"></div><p>Silêncios longos e erros de fala já cortados (Parte 03)</p></div>
+      <div class="check-row"><div class="box"></div><p>SFX escolhidos ou gravados, com licença conferida (Parte 04)</p></div>
+      <div class="check-row"><div class="box"></div><p>Todas as trilhas (música, SFX, narração) posicionadas na ordem certa (Parte 05)</p></div>
+      <div class="check-row"><div class="box"></div><p>Sessão salva como .sesx, pronta para receber tratamento de volume</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Passando o bastão</h2></div>
+    <div class="handoff">
+      <div class="handoff-card done">
+        <h3>✓ Edição de Som</h3>
+        <p>Concluída — áudio gravado, cortado e arranjado</p>
+      </div>
+      <div class="handoff-arrow">→</div>
+      <div class="handoff-card next">
+        <h3>Mixagem (GuiaAudition)</h3>
+        <p>Comece pela Parte 03 — Mixagem guiada</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Continue exatamente daqui</strong>
+      <p>Abra a sessão salva nesta etapa e siga direto para a <a href="https://rclepf.github.io/GuiaAudition/parte-3-mixagem-guiada.html">Parte 03 do Guia de Mixagem</a> — nivelamento, EQ, compressão e redução de ruído, fechando a Atividade 06.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot-nav">
+  <div class="wrap foot-nav-inner">
+    <a class="foot-prev" href="parte-5-montagem-guiada.html">
+      <span class="fn-label">← Parte 05</span>
+      <span class="fn-title">Montagem guiada</span>
+    </a>
+    <a class="foot-next" href="https://rclepf.github.io/GuiaAudition/">
+      <span class="fn-label">Continue no</span>
+      <span class="fn-title">Guia de Mixagem →</span>
+    </a>
+  </div>
+  <p class="wrap foot-meta">Planejamento e Produção de Elementos Multimídia de Jogos Digitais · Material de apoio prático · Edição de Som · Guia completo</p>
+</footer>
+</body>
+</html>

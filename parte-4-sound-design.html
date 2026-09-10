@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound design · Edição de Som para Jogos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #10151a; --bg-raised: #161d24; --bg-panel: #1c252d; --line: #2d3944;
+  --text: #eaf2f1; --text-dim: #a7bdbd; --text-faint: #6c8686;
+  --accent: #5cf3ea; --accent-dim: #2f9e97; --warn: #f2a65c;
+  --radius: 6px;
+  --display: 'Sora', sans-serif; --body: 'Inter', sans-serif; --mono: 'Space Mono', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+body{margin:0; background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.65; font-size:16px;}
+a{color:var(--accent);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+.topbar{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.9rem 1.75rem; background:rgba(16,21,26,0.9); backdrop-filter: blur(10px); border-bottom:1px solid var(--line); flex-wrap:wrap;}
+.topbar .brand{font-family:var(--display); font-weight:700; font-size:1rem; color:var(--text); display:flex; align-items:center; gap:0.6rem; text-decoration:none;}
+.topbar .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent); box-shadow:0 0 10px var(--accent); flex-shrink:0;}
+.topnav{display:flex; gap:1.3rem; flex-wrap:wrap;}
+.topnav a{color:var(--text-dim); text-decoration:none; font-size:0.84rem; font-family:var(--mono); transition:color 0.15s;}
+.topnav a:hover, .topnav a.active{color:var(--accent);}
+.wrap{max-width:900px; margin:0 auto; padding:0 1.75rem;}
+.pagehead{padding:3.2rem 0 2.5rem;}
+.pagehead .kicker{font-family:var(--mono); color:var(--accent); font-size:0.85rem; margin-bottom:1rem;}
+.pagehead h1{font-family:var(--display); font-size:clamp(1.8rem, 4.5vw, 2.6rem); line-height:1.15; font-weight:800; margin:0 0 1rem; max-width:22ch;}
+.pagehead p.lead{font-size:1.05rem; color:var(--text-dim); max-width:62ch; margin:0;}
+section{padding:2.8rem 0; border-top:1px solid var(--line);}
+.sec-head{display:flex; align-items:baseline; gap:0.8rem; margin-bottom:1.4rem; flex-wrap:wrap;}
+.sec-num{font-family:var(--mono); color:var(--accent); font-size:0.9rem;}
+.sec-head h2{font-family:var(--display); font-size:1.45rem; margin:0; font-weight:700;}
+p{color:var(--text-dim);}
+.lead-in{color:var(--text); font-size:1.02rem;}
+.kbd{font-family:var(--mono); background:var(--bg-panel); border:1px solid var(--line); color:var(--text); padding:0.12rem 0.5rem; border-radius:4px; font-size:0.82rem;}
+table{width:100%; border-collapse:collapse; margin:1.4rem 0; font-size:0.9rem;}
+th{padding:0.6rem 0; color:var(--text-faint); font-family:var(--mono); font-size:0.76rem; text-transform:uppercase; text-align:left; border-bottom:1px solid var(--line);}
+td{padding:0.6rem 0; color:var(--text-dim); border-bottom:1px solid var(--line);}
+td:first-child{color:var(--text); font-weight:600;}
+.callout{background:var(--bg-raised); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0; padding:1.1rem 1.4rem; margin:1.5rem 0; font-size:0.92rem;}
+.callout strong{color:var(--accent); font-family:var(--mono); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; display:block; margin-bottom:0.4rem;}
+.callout p{margin:0; color:var(--text);}
+.callout.warn{border-left-color:var(--warn);}
+.callout.warn strong{color:var(--warn);}
+.foley-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin:1.6rem 0;}
+@media (max-width:640px){ .foley-grid{grid-template-columns:1fr;} }
+.foley-card{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.2rem;}
+.foley-card .need{font-family:var(--mono); font-size:0.75rem; color:var(--accent); margin-bottom:0.3rem; display:block;}
+.foley-card p{margin:0; font-size:0.88rem;}
+.foot-nav{padding:2.6rem 0 3.5rem; border-top:1px solid var(--line);}
+.foot-nav-inner{display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap;}
+.foot-prev, .foot-next{text-decoration:none; display:flex; flex-direction:column; gap:0.25rem;}
+.foot-next{align-items:flex-end;}
+.foot-prev .fn-label, .foot-next .fn-label{font-family:var(--mono); color:var(--text-faint); font-size:0.72rem; text-transform:uppercase;}
+.foot-prev .fn-title, .foot-next .fn-title{font-family:var(--display); color:var(--text); font-size:1.05rem; font-weight:700;}
+.foot-prev:hover .fn-title, .foot-next:hover .fn-title{color:var(--accent);}
+.foot-meta{text-align:center; color:var(--text-faint); font-size:0.76rem; margin-top:2.4rem; font-family:var(--mono);}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Edição de Som para Jogos</a>
+  <nav class="topnav" aria-label="Navegação da página">
+    <a href="parte-1-o-que-e.html">01 O que é</a>
+    <a href="parte-2-gravacao.html">02 Gravação</a>
+    <a href="parte-3-edicao.html">03 Edição de clipes</a>
+    <a href="parte-4-sound-design.html" class="active">04 Sound design</a>
+    <a href="parte-5-montagem-guiada.html">05 Montagem guiada</a>
+    <a href="parte-6-dicas.html">06 Dicas</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="pagehead">
+    <p class="kicker">Parte 04 de 06</p>
+    <h1>Sound design: sourcing e criação de efeitos</h1>
+    <p class="lead">Todo jogo precisa de SFX — passos, impacto, cliques de UI. Duas estratégias resolvem isso: buscar em bibliotecas prontas ou gravar o seu próprio ("foley").</p>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Bibliotecas de efeitos gratuitas</h2></div>
+    <table>
+      <thead><tr><th>Fonte</th><th>O que oferece</th></tr></thead>
+      <tbody>
+        <tr><td>Freesound.org</td><td>Banco colaborativo enorme, com filtro por licença Creative Commons</td></tr>
+        <tr><td>Biblioteca de SFX do Audition/Premiere</td><td>Efeitos royalty-free já embutidos no pacote Adobe, sem risco de licenciamento</td></tr>
+        <tr><td>Bibliotecas de engines (Unity/Godot Asset Store)</td><td>Pacotes de SFX pensados especificamente para jogos, já categorizados por uso</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn">
+      <strong>Sempre confira a licença</strong>
+      <p>Nem todo som gratuito pode ser usado livremente — algumas licenças Creative Commons exigem atribuição (citar o autor), outras proíbem uso comercial. Leia a licença antes de usar qualquer efeito de fora do pacote Adobe.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Foley caseiro: criando seus próprios efeitos</h2></div>
+    <p class="lead-in">Muitos sons de jogo profissionais nascem de objetos do dia a dia gravados de perto — a técnica chama-se <strong style="color:var(--text)">foley</strong>.</p>
+    <div class="foley-grid">
+      <div class="foley-card"><span class="need">Passos</span><p>Bater sapatos contra uma superfície de madeira ou uma caixa com terra/areia</p></div>
+      <div class="foley-card"><span class="need">Impacto pesado</span><p>Deixar um livro ou caixa cair perto do microfone</p></div>
+      <div class="foley-card"><span class="need">Abertura de baú/porta</span><p>Dobradiças de armário real, gravadas de perto e devagar</p></div>
+      <div class="foley-card"><span class="need">Clique de UI</span><p>Estalar a língua, clicar uma caneta, ou usar o clique de um mouse mecânico</p></div>
+    </div>
+    <p>Grave cada efeito seguindo a mesma técnica da Parte 02 (nível adequado, ambiente controlado) e edite-o no Waveform Editor (Parte 03) antes de usar.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Organizando o banco de SFX do projeto</h2></div>
+    <p>Reúna todos os efeitos escolhidos ou gravados numa única pasta (<span class="kbd">teaser_audio/sfx/</span>, como na Parte 03), com nomes descritivos — <span class="kbd">passo_madeira_01.wav</span>, não <span class="kbd">audio_final_v3.wav</span>. Isso facilita muito a montagem guiada da próxima parte.</p>
+    <div class="callout">
+      <strong>Quantidade não é qualidade</strong>
+      <p>Um teaser de 15-20 segundos raramente precisa de mais que 4-6 efeitos sonoros diferentes. Escolha poucos e bons, em vez de encher a trilha de SFX.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot-nav">
+  <div class="wrap foot-nav-inner">
+    <a class="foot-prev" href="parte-3-edicao.html">
+      <span class="fn-label">← Parte 03</span>
+      <span class="fn-title">Organização e edição de clipes</span>
+    </a>
+    <a class="foot-next" href="parte-5-montagem-guiada.html">
+      <span class="fn-label">Próximo · Parte 05</span>
+      <span class="fn-title">Montagem guiada →</span>
+    </a>
+  </div>
+  <p class="wrap foot-meta">Planejamento e Produção de Elementos Multimídia de Jogos Digitais · Material de apoio prático · Edição de Som</p>
+</footer>
+</body>
+</html>

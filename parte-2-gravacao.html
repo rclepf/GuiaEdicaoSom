@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gravação e captura · Edição de Som para Jogos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #10151a; --bg-raised: #161d24; --bg-panel: #1c252d; --line: #2d3944;
+  --text: #eaf2f1; --text-dim: #a7bdbd; --text-faint: #6c8686;
+  --accent: #5cf3ea; --accent-dim: #2f9e97; --warn: #f2a65c;
+  --radius: 6px;
+  --display: 'Sora', sans-serif; --body: 'Inter', sans-serif; --mono: 'Space Mono', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+body{margin:0; background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.65; font-size:16px;}
+a{color:var(--accent);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+.topbar{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.9rem 1.75rem; background:rgba(16,21,26,0.9); backdrop-filter: blur(10px); border-bottom:1px solid var(--line); flex-wrap:wrap;}
+.topbar .brand{font-family:var(--display); font-weight:700; font-size:1rem; color:var(--text); display:flex; align-items:center; gap:0.6rem; text-decoration:none;}
+.topbar .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent); box-shadow:0 0 10px var(--accent); flex-shrink:0;}
+.topnav{display:flex; gap:1.3rem; flex-wrap:wrap;}
+.topnav a{color:var(--text-dim); text-decoration:none; font-size:0.84rem; font-family:var(--mono); transition:color 0.15s;}
+.topnav a:hover, .topnav a.active{color:var(--accent);}
+.wrap{max-width:900px; margin:0 auto; padding:0 1.75rem;}
+.pagehead{padding:3.2rem 0 2.5rem;}
+.pagehead .kicker{font-family:var(--mono); color:var(--accent); font-size:0.85rem; margin-bottom:1rem;}
+.pagehead h1{font-family:var(--display); font-size:clamp(1.8rem, 4.5vw, 2.6rem); line-height:1.15; font-weight:800; margin:0 0 1rem; max-width:22ch;}
+.pagehead p.lead{font-size:1.05rem; color:var(--text-dim); max-width:62ch; margin:0;}
+section{padding:2.8rem 0; border-top:1px solid var(--line);}
+.sec-head{display:flex; align-items:baseline; gap:0.8rem; margin-bottom:1.4rem; flex-wrap:wrap;}
+.sec-num{font-family:var(--mono); color:var(--accent); font-size:0.9rem;}
+.sec-head h2{font-family:var(--display); font-size:1.45rem; margin:0; font-weight:700;}
+p{color:var(--text-dim);}
+.lead-in{color:var(--text); font-size:1.02rem;}
+.kbd{font-family:var(--mono); background:var(--bg-panel); border:1px solid var(--line); color:var(--text); padding:0.12rem 0.5rem; border-radius:4px; font-size:0.82rem;}
+table{width:100%; border-collapse:collapse; margin:1.4rem 0; font-size:0.9rem;}
+th{padding:0.6rem 0; color:var(--text-faint); font-family:var(--mono); font-size:0.76rem; text-transform:uppercase; text-align:left; border-bottom:1px solid var(--line);}
+td{padding:0.6rem 0; color:var(--text-dim); border-bottom:1px solid var(--line);}
+td:first-child{color:var(--text); font-weight:600;}
+.steps{display:grid; gap:1rem; margin:1.8rem 0;}
+.step{display:grid; grid-template-columns:40px 1fr; gap:1rem; align-items:start; background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.3rem;}
+.step-num{width:30px; height:30px; border-radius:50%; background:var(--bg-panel); border:1px solid var(--accent-dim); color:var(--accent); font-family:var(--mono); font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center;}
+.step h4{margin:0 0 0.3rem; font-family:var(--body); font-weight:700; font-size:0.96rem; color:var(--text);}
+.step p{margin:0; font-size:0.89rem;}
+.step .why{margin-top:0.5rem; font-size:0.8rem; color:var(--text-faint); font-style:italic;}
+.callout{background:var(--bg-raised); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0; padding:1.1rem 1.4rem; margin:1.5rem 0; font-size:0.92rem;}
+.callout strong{color:var(--accent); font-family:var(--mono); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; display:block; margin-bottom:0.4rem;}
+.callout p{margin:0; color:var(--text);}
+.callout.warn{border-left-color:var(--warn);}
+.callout.warn strong{color:var(--warn);}
+.level-scale{margin:1.6rem 0;}
+.level-bar{position:relative; height:30px; border-radius:6px; background:linear-gradient(90deg, #2f9e97, #5cf3ea 70%, #f2a65c 90%, #e5484d); margin-bottom:0.5rem;}
+.level-marks{display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.7rem; color:var(--text-faint);}
+.foot-nav{padding:2.6rem 0 3.5rem; border-top:1px solid var(--line);}
+.foot-nav-inner{display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap;}
+.foot-prev, .foot-next{text-decoration:none; display:flex; flex-direction:column; gap:0.25rem;}
+.foot-next{align-items:flex-end;}
+.foot-prev .fn-label, .foot-next .fn-label{font-family:var(--mono); color:var(--text-faint); font-size:0.72rem; text-transform:uppercase;}
+.foot-prev .fn-title, .foot-next .fn-title{font-family:var(--display); color:var(--text); font-size:1.05rem; font-weight:700;}
+.foot-prev:hover .fn-title, .foot-next:hover .fn-title{color:var(--accent);}
+.foot-meta{text-align:center; color:var(--text-faint); font-size:0.76rem; margin-top:2.4rem; font-family:var(--mono);}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Edição de Som para Jogos</a>
+  <nav class="topnav" aria-label="Navegação da página">
+    <a href="parte-1-o-que-e.html">01 O que é</a>
+    <a href="parte-2-gravacao.html" class="active">02 Gravação</a>
+    <a href="parte-3-edicao.html">03 Edição de clipes</a>
+    <a href="parte-4-sound-design.html">04 Sound design</a>
+    <a href="parte-5-montagem-guiada.html">05 Montagem guiada</a>
+    <a href="parte-6-dicas.html">06 Dicas</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="pagehead">
+    <p class="kicker">Parte 02 de 06</p>
+    <h1>Gravação e captura de áudio</h1>
+    <p class="lead">Uma boa gravação poupa horas de tratamento depois. O objetivo aqui não é soar perfeito — é capturar sinal limpo e num nível seguro, para que a mixagem tenha o que trabalhar.</p>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Microfone e ambiente</h2></div>
+    <table>
+      <thead><tr><th>Fator</th><th>O que fazer</th></tr></thead>
+      <tbody>
+        <tr><td>Microfone</td><td>Qualquer microfone dedicado (mesmo um de headset USB simples) já supera o microfone embutido do notebook, que capta ruído da própria máquina</td></tr>
+        <tr><td>Distância</td><td>15-20cm da boca, levemente de lado, para reduzir "plosivas" (estouros do P e B)</td></tr>
+        <tr><td>Ambiente</td><td>Grave num cômodo pequeno com tecido (cortina, guarda-roupa cheio, cobertores) — superfícies duras e vazias geram eco</td></tr>
+        <tr><td>Ruído de fundo</td><td>Desligue ventilador, ar-condicionado e notificações do celular antes de gravar</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Nível de gravação: nem baixo, nem estourado</h2></div>
+    <div class="level-scale">
+      <div class="level-bar"></div>
+      <div class="level-marks"><span>Muito baixo</span><span>Faixa ideal</span><span>Estourado (clipping)</span></div>
+    </div>
+    <p class="lead-in">O medidor de níveis do Audition mostra o volume em tempo real durante a gravação. A meta é manter os picos entre -12dB e -6dB, com uma margem (headroom) confortável antes de 0dB.</p>
+    <div class="callout warn">
+      <strong>Clipping não tem conserto</strong>
+      <p>Se o áudio "estoura" (encosta em 0dB e distorce), não existe efeito que remova isso depois — a informação é perdida no momento da gravação. Prefira gravar um pouco baixo demais a estourar; um sinal baixo pode ser amplificado, um sinal cortado não.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Guia passo a passo — gravando uma narração de teste</h2></div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Crie uma nova sessão Multitrack</h4>
+          <p>File → New → Multitrack Session. Nomeie de forma que fique claro que é a sessão de edição do teaser.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Adicione uma trilha e confira a entrada</h4>
+          <p>Verifique nas configurações de áudio do Audition (Edit → Preferences → Audio Hardware) se o microfone certo está selecionado como entrada.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Faça um teste de nível antes de gravar de verdade</h4>
+          <p>Fale no volume real que vai usar e observe o medidor — ajuste o ganho de entrada até os picos ficarem na faixa ideal (seção 02).</p>
+          <p class="why">Por quê: ajustar o ganho depois de já ter gravado não é possível — só antes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Grave em um único take contínuo</h4>
+          <p>Clique em Record (R) e grave a narração inteira de uma vez, mesmo com pequenos erros — é mais fácil cortar depois (Parte 03) do que costurar vários pedaços.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h4>Nomeie e salve o arquivo</h4>
+          <p>Renomeie o clipe gravado para algo identificável, como <span class="kbd">narracao_teaser_take1</span>, preparando o terreno para a organização da Parte 03.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot-nav">
+  <div class="wrap foot-nav-inner">
+    <a class="foot-prev" href="parte-1-o-que-e.html">
+      <span class="fn-label">← Parte 01</span>
+      <span class="fn-title">O que é edição de som</span>
+    </a>
+    <a class="foot-next" href="parte-3-edicao.html">
+      <span class="fn-label">Próximo · Parte 03</span>
+      <span class="fn-title">Organização e edição de clipes →</span>
+    </a>
+  </div>
+  <p class="wrap foot-meta">Planejamento e Produção de Elementos Multimídia de Jogos Digitais · Material de apoio prático · Edição de Som</p>
+</footer>
+</body>
+</html>

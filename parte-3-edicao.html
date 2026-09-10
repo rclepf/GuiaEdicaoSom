@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organização e edição de clipes · Edição de Som para Jogos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #10151a; --bg-raised: #161d24; --bg-panel: #1c252d; --line: #2d3944;
+  --text: #eaf2f1; --text-dim: #a7bdbd; --text-faint: #6c8686;
+  --accent: #5cf3ea; --accent-dim: #2f9e97; --warn: #f2a65c;
+  --radius: 6px;
+  --display: 'Sora', sans-serif; --body: 'Inter', sans-serif; --mono: 'Space Mono', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+body{margin:0; background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.65; font-size:16px;}
+a{color:var(--accent);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+.topbar{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.9rem 1.75rem; background:rgba(16,21,26,0.9); backdrop-filter: blur(10px); border-bottom:1px solid var(--line); flex-wrap:wrap;}
+.topbar .brand{font-family:var(--display); font-weight:700; font-size:1rem; color:var(--text); display:flex; align-items:center; gap:0.6rem; text-decoration:none;}
+.topbar .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent); box-shadow:0 0 10px var(--accent); flex-shrink:0;}
+.topnav{display:flex; gap:1.3rem; flex-wrap:wrap;}
+.topnav a{color:var(--text-dim); text-decoration:none; font-size:0.84rem; font-family:var(--mono); transition:color 0.15s;}
+.topnav a:hover, .topnav a.active{color:var(--accent);}
+.wrap{max-width:900px; margin:0 auto; padding:0 1.75rem;}
+.pagehead{padding:3.2rem 0 2.5rem;}
+.pagehead .kicker{font-family:var(--mono); color:var(--accent); font-size:0.85rem; margin-bottom:1rem;}
+.pagehead h1{font-family:var(--display); font-size:clamp(1.8rem, 4.5vw, 2.6rem); line-height:1.15; font-weight:800; margin:0 0 1rem; max-width:22ch;}
+.pagehead p.lead{font-size:1.05rem; color:var(--text-dim); max-width:62ch; margin:0;}
+section{padding:2.8rem 0; border-top:1px solid var(--line);}
+.sec-head{display:flex; align-items:baseline; gap:0.8rem; margin-bottom:1.4rem; flex-wrap:wrap;}
+.sec-num{font-family:var(--mono); color:var(--accent); font-size:0.9rem;}
+.sec-head h2{font-family:var(--display); font-size:1.45rem; margin:0; font-weight:700;}
+p{color:var(--text-dim);}
+.lead-in{color:var(--text); font-size:1.02rem;}
+.kbd{font-family:var(--mono); background:var(--bg-panel); border:1px solid var(--line); color:var(--text); padding:0.12rem 0.5rem; border-radius:4px; font-size:0.82rem;}
+.feat-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin:1.6rem 0;}
+@media (max-width:640px){ .feat-grid{grid-template-columns:1fr;} }
+.feat-card{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.2rem 1.3rem;}
+.feat-card h3{font-family:var(--display); font-size:1rem; margin:0 0 0.5rem;}
+.feat-card p{margin:0; font-size:0.9rem;}
+.steps{display:grid; gap:1rem; margin:1.8rem 0;}
+.step{display:grid; grid-template-columns:40px 1fr; gap:1rem; align-items:start; background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.3rem;}
+.step-num{width:30px; height:30px; border-radius:50%; background:var(--bg-panel); border:1px solid var(--accent-dim); color:var(--accent); font-family:var(--mono); font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center;}
+.step h4{margin:0 0 0.3rem; font-family:var(--body); font-weight:700; font-size:0.96rem; color:var(--text);}
+.step p{margin:0; font-size:0.89rem;}
+.step .why{margin-top:0.5rem; font-size:0.8rem; color:var(--text-faint); font-style:italic;}
+.callout{background:var(--bg-raised); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0; padding:1.1rem 1.4rem; margin:1.5rem 0; font-size:0.92rem;}
+.callout strong{color:var(--accent); font-family:var(--mono); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; display:block; margin-bottom:0.4rem;}
+.callout p{margin:0; color:var(--text);}
+.file-tree{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.2rem 1.4rem; margin:1.6rem 0; font-family:var(--mono); font-size:0.85rem; color:var(--text-dim); line-height:1.9;}
+.file-tree .folder{color:var(--accent);}
+.foot-nav{padding:2.6rem 0 3.5rem; border-top:1px solid var(--line);}
+.foot-nav-inner{display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap;}
+.foot-prev, .foot-next{text-decoration:none; display:flex; flex-direction:column; gap:0.25rem;}
+.foot-next{align-items:flex-end;}
+.foot-prev .fn-label, .foot-next .fn-label{font-family:var(--mono); color:var(--text-faint); font-size:0.72rem; text-transform:uppercase;}
+.foot-prev .fn-title, .foot-next .fn-title{font-family:var(--display); color:var(--text); font-size:1.05rem; font-weight:700;}
+.foot-prev:hover .fn-title, .foot-next:hover .fn-title{color:var(--accent);}
+.foot-meta{text-align:center; color:var(--text-faint); font-size:0.76rem; margin-top:2.4rem; font-family:var(--mono);}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Edição de Som para Jogos</a>
+  <nav class="topnav" aria-label="Navegação da página">
+    <a href="parte-1-o-que-e.html">01 O que é</a>
+    <a href="parte-2-gravacao.html">02 Gravação</a>
+    <a href="parte-3-edicao.html" class="active">03 Edição de clipes</a>
+    <a href="parte-4-sound-design.html">04 Sound design</a>
+    <a href="parte-5-montagem-guiada.html">05 Montagem guiada</a>
+    <a href="parte-6-dicas.html">06 Dicas</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="pagehead">
+    <p class="kicker">Parte 03 de 06</p>
+    <h1>Organização e edição de clipes</h1>
+    <p class="lead">Antes de qualquer efeito, o áudio bruto precisa estar limpo de erros óbvios e organizado — a parte menos empolgante do processo, e a que mais economiza tempo depois.</p>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Organize antes de editar</h2></div>
+    <p class="lead-in">Uma estrutura de pastas simples evita perder arquivos no meio do projeto:</p>
+    <div class="file-tree">
+      <span class="folder">📁 teaser_audio/</span><br>
+      &nbsp;&nbsp;<span class="folder">📁 narracao/</span> narracao_teaser_take1.wav<br>
+      &nbsp;&nbsp;<span class="folder">📁 sfx/</span> passo_01.wav, impacto_baú.wav, ui_click.wav<br>
+      &nbsp;&nbsp;<span class="folder">📁 musica/</span> trilha_principal.wav<br>
+      &nbsp;&nbsp;<span class="folder">📁 sessao/</span> teaser_edicao.sesx
+    </div>
+    <p>No painel <strong style="color:var(--text)">Files</strong> do Audition, importe cada pasta separadamente — isso mantém a mesma organização visível dentro do programa.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Editando a narração</h2></div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <h3>Cortar silêncios longos</h3>
+        <p>No Waveform Editor, selecione o trecho de silêncio entre frases e delete — silêncios longos deixam a narração arrastada.</p>
+      </div>
+      <div class="feat-card">
+        <h3>Remover erros de fala</h3>
+        <p>Identifique visualmente na waveform onde há um "take errado" e recorte, mantendo apenas a melhor versão de cada frase.</p>
+      </div>
+      <div class="feat-card">
+        <h3>Suavizar cortes (Crossfade)</h3>
+        <p>Um corte seco pode soar como um "clique". Aplique um fade curto (alguns milissegundos) nas bordas do corte para suavizar a transição.</p>
+      </div>
+      <div class="feat-card">
+        <h3>Remover ruídos pontuais</h3>
+        <p>Um clique isolado (um toque acidental no microfone) pode ser selecionado na vista espectral e apagado sem afetar o resto do áudio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Guia passo a passo — limpando a narração gravada</h2></div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Abra o clipe no Waveform Editor</h4>
+          <p>Duplo clique no arquivo de narração gravado na Parte 02.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Ouça a gravação inteira uma vez, anotando os problemas</h4>
+          <p>Erros de fala, respirações muito altas, ruídos pontuais — antes de editar, saiba exatamente o que precisa ser cortado.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Corte os trechos problemáticos</h4>
+          <p>Selecione cada trecho (<span class="kbd">Click + arrastar</span>) e delete. Use <span class="kbd">Ctrl+Z</span> sem medo — cortar é um processo de tentativa e erro.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Suavize as emendas</h4>
+          <p>Nos pontos onde você cortou, aplique um crossfade curto (arraste o pequeno ícone no canto do clipe, se estiver no Multitrack, ou use Favorites → Fade In/Out no Waveform).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h4>Salve como uma nova versão</h4>
+          <p>File → Save As, com um nome indicando que já foi editada: <span class="kbd">narracao_teaser_editada.wav</span> — mantendo o take original intacto, sem sobrescrever.</p>
+          <p class="why">Por quê: se algo der errado na edição, o arquivo original continua disponível para recomeçar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="callout">
+    <strong>Isso vale para os SFX também</strong>
+    <p>O mesmo processo de organizar, ouvir e cortar se aplica aos efeitos sonoros que você for buscar ou gravar na Parte 04 — nenhum SFX baixado da internet costuma vir pronto para uso direto.</p>
+  </div>
+</main>
+
+<footer class="foot-nav">
+  <div class="wrap foot-nav-inner">
+    <a class="foot-prev" href="parte-2-gravacao.html">
+      <span class="fn-label">← Parte 02</span>
+      <span class="fn-title">Gravação e captura</span>
+    </a>
+    <a class="foot-next" href="parte-4-sound-design.html">
+      <span class="fn-label">Próximo · Parte 04</span>
+      <span class="fn-title">Sound design →</span>
+    </a>
+  </div>
+  <p class="wrap foot-meta">Planejamento e Produção de Elementos Multimídia de Jogos Digitais · Material de apoio prático · Edição de Som</p>
+</footer>
+</body>
+</html>
