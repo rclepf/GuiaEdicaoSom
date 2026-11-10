@@ -65,6 +65,32 @@ td:first-child{color:var(--text); font-weight:600;}
 .foot-prev .fn-title, .foot-next .fn-title{font-family:var(--display); color:var(--text); font-size:1.05rem; font-weight:700;}
 .foot-prev:hover .fn-title, .foot-next:hover .fn-title{color:var(--accent);}
 .foot-meta{text-align:center; color:var(--text-faint); font-size:0.76rem; margin-top:2.4rem; font-family:var(--mono);}
+
+/* --- didática guiada --- */
+.goal{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:0 0 2.4rem;}
+@media (max-width:760px){ .goal{grid-template-columns:1fr;} }
+.goal .gcard{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.25rem;}
+.goal h3{font-family:var(--mono); font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--accent); margin:0 0 0.55rem; font-weight:700;}
+.goal ul{margin:0; padding-left:1.1rem; color:var(--text-dim); font-size:0.9rem;}
+.goal li{margin-bottom:0.35rem;}
+.goal p{margin:0; color:var(--text-dim); font-size:0.9rem;}
+.check{margin:0.8rem 0 0; padding:0.65rem 0.95rem; border-left:3px solid var(--accent); background:rgba(92,243,234,0.07); font-size:0.86rem; color:var(--text); border-radius:0 var(--radius) var(--radius) 0;}
+.check b{color:var(--accent); font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; margin-right:0.45rem;}
+.how{margin:0.7rem 0 0; padding-left:1.25rem; color:var(--text-dim); font-size:0.88rem;}
+.how li{margin-bottom:0.3rem;}
+.how li::marker{color:var(--accent); font-family:var(--mono);}
+details.quiz{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); margin:0.7rem 0; padding:0.9rem 1.2rem;}
+details.quiz summary{cursor:pointer; color:var(--text); font-weight:600; font-size:0.95rem;}
+details.quiz p{margin:0.7rem 0 0; color:var(--text-dim); font-size:0.9rem;}
+.callout.warn{border-left-color:var(--warn);}
+.callout.warn strong{color:var(--warn);}
+.callout ol, .callout ul{margin:0.4rem 0 0; padding-left:1.2rem; color:var(--text); font-size:0.9rem;}
+.callout li{margin-bottom:0.3rem;}
+.mini-table{width:100%; border-collapse:collapse; margin:1.2rem 0; font-size:0.88rem;}
+.mini-table th,.mini-table td{text-align:left; padding:0.6rem 0.8rem; border-bottom:1px solid var(--line); color:var(--text-dim); vertical-align:top;}
+.mini-table th{font-family:var(--mono); font-size:0.74rem; text-transform:uppercase; color:var(--text-faint); font-weight:500;}
+.tbl{overflow-x:auto;}
+@media (max-width:640px){ .tbl .mini-table{min-width:560px;} }
 </style>
 </head>
 <body>
@@ -86,6 +112,13 @@ td:first-child{color:var(--text); font-weight:600;}
     <h1>Gravação e captura de áudio</h1>
     <p class="lead">Uma boa gravação poupa horas de tratamento depois. O objetivo aqui não é soar perfeito — é capturar sinal limpo e num nível seguro, para que a mixagem tenha o que trabalhar.</p>
   </div>
+
+  <div class="goal">
+    <div class="gcard"><h3>Nesta parte você vai</h3><ul><li>Escolher o microfone e o ambiente de gravação</li><li>Ajustar o nível de entrada com picos entre -12 dB e -6 dB</li><li>Gravar uma narração de teste em um take só</li></ul></div>
+    <div class="gcard"><h3>Tempo e material</h3><p><strong style="color:var(--text)">25 minutos</strong></p><ul style="margin-top:0.5rem"><li>Microfone (um de headset serve)</li><li>Um cômodo silencioso e com tecidos</li><li>Fones de ouvido</li><li>Audition aberto</li></ul></div>
+    <div class="gcard"><h3>Palavras-chave</h3><ul><li><strong style="color:var(--text)">Ganho:</strong> volume da entrada</li><li><strong style="color:var(--text)">Clipping:</strong> som estourado, sem conserto</li><li><strong style="color:var(--text)">Headroom:</strong> margem antes do 0 dB</li><li><strong style="color:var(--text)">Take:</strong> uma gravação completa</li></ul></div>
+  </div>
+
 
   <section>
     <div class="sec-head"><span class="sec-num">01</span><h2>Microfone e ambiente</h2></div>
@@ -128,6 +161,7 @@ td:first-child{color:var(--text); font-weight:600;}
         <div>
           <h4>Adicione uma trilha e confira a entrada</h4>
           <p>Verifique nas configurações de áudio do Audition (Edit → Preferences → Audio Hardware) se o microfone certo está selecionado como entrada.</p>
+        <ol class="how"><li>Vá em Edit → Preferences → Audio Hardware e, em <em>Default Input</em>, escolha o seu microfone.</li><li>Na trilha, clique no botão <strong style="color:var(--text)">R</strong> do cabeçalho (arma a trilha para gravar).</li><li>Fale qualquer coisa.</li></ol><p class="check"><b>✔ Checkpoint</b>o medidor da trilha se mexe quando você fala. Se ficar parado, a entrada escolhida não é o seu microfone, ou o sistema operacional está bloqueando o microfone para o Audition.</p>
         </div>
       </div>
       <div class="step">
@@ -136,6 +170,7 @@ td:first-child{color:var(--text); font-weight:600;}
           <h4>Faça um teste de nível antes de gravar de verdade</h4>
           <p>Fale no volume real que vai usar e observe o medidor — ajuste o ganho de entrada até os picos ficarem na faixa ideal (seção 02).</p>
           <p class="why">Por quê: ajustar o ganho depois de já ter gravado não é possível — só antes.</p>
+        <p class="check"><b>✔ Checkpoint</b>ao falar no volume real da narração, os picos ficam entre -12 dB e -6 dB, na região verde-amarela do medidor, sem nunca tocar o vermelho. Se tocar, abaixe o ganho de entrada do microfone ou afaste-se um pouco.</p>
         </div>
       </div>
       <div class="step">
@@ -143,6 +178,7 @@ td:first-child{color:var(--text); font-weight:600;}
         <div>
           <h4>Grave em um único take contínuo</h4>
           <p>Clique em Record (R) e grave a narração inteira de uma vez, mesmo com pequenos erros — é mais fácil cortar depois (Parte 03) do que costurar vários pedaços.</p>
+        <ol class="how"><li>Com a trilha armada, clique em <em>Record</em> no painel Transport (ou use <span class="kbd">Shift</span>+<span class="kbd">Barra de espaço</span>).</li><li>Espere um segundo em silêncio, leia o texto inteiro e espere mais um segundo antes de parar.</li></ol><p class="check"><b>✔ Checkpoint</b>aparece uma forma de onda com começo e fim de silêncio, sem trechos achatados e “cortados” no topo (sinal de clipping).</p>
         </div>
       </div>
       <div class="step">
@@ -150,10 +186,22 @@ td:first-child{color:var(--text); font-weight:600;}
         <div>
           <h4>Nomeie e salve o arquivo</h4>
           <p>Renomeie o clipe gravado para algo identificável, como <span class="kbd">narracao_teaser_take1</span>, preparando o terreno para a organização da Parte 03.</p>
+        <p class="check"><b>✔ Checkpoint</b>o clipe aparece no painel Files com o nome narracao_teaser_take1 e o arquivo está salvo na pasta do projeto.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Faça agora e teste o que aprendeu</h2></div>
+<p class="lead-in">Descobrir a distância certa para a sua voz e o seu microfone vale mais do que qualquer regra.</p>
+<div class="callout"><strong>Faça agora</strong><ol><li>Leia o mesmo trecho de 30 segundos três vezes: com o microfone a 10 cm, a 20 cm e a 40 cm da boca.</li><li>Observe os picos de cada take e anote a distância em que o som ficou mais limpo e sem estouros.</li><li>Escolha o melhor take e renomeie-o como narracao_teaser_take1. Esse é o arquivo que a Parte 03 vai limpar.</li></ol></div><div class="callout warn"><strong>Travou? Tente isto</strong><ul><li><strong>Não aparece sinal:</strong> confira a entrada em Audio Hardware e se o microfone não está mudo. No Windows e no macOS, o sistema pode bloquear o microfone para o Audition; libere nas configurações de privacidade.</li><li><strong>Voz com chiado ou ruído de fundo:</strong> afaste o ganho de entrada do máximo, desligue ventilador e ar-condicionado e aproxime o microfone da boca (15 a 20 cm).</li><li><strong>Gravou estourado:</strong> não tem conserto. Abaixe o ganho e grave de novo.</li></ul></div><h3 style="font-family:var(--display);margin:2rem 0 0.6rem;">Teste o que aprendeu</h3>
+<details class="quiz"><summary>1. Por que é melhor gravar um pouco baixo do que estourado?</summary><p>Um sinal baixo pode ser amplificado depois. Um sinal estourado perdeu informação e nenhum efeito recupera.</p></details>
+<details class="quiz"><summary>2. Em que faixa devem ficar os picos da gravação?</summary><p>Entre -12 dB e -6 dB, deixando margem (headroom) antes de 0 dB.</p></details>
+<details class="quiz"><summary>3. Por que gravar a narração inteira em um único take?</summary><p>É mais fácil cortar os erros depois (Parte 03) do que costurar vários pedaços que podem ter tom e volume diferentes.</p></details>
+
+  </section>
+
 </main>
 
 <footer class="foot-nav">

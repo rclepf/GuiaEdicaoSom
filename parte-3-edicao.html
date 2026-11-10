@@ -63,6 +63,32 @@ p{color:var(--text-dim);}
 .foot-prev .fn-title, .foot-next .fn-title{font-family:var(--display); color:var(--text); font-size:1.05rem; font-weight:700;}
 .foot-prev:hover .fn-title, .foot-next:hover .fn-title{color:var(--accent);}
 .foot-meta{text-align:center; color:var(--text-faint); font-size:0.76rem; margin-top:2.4rem; font-family:var(--mono);}
+
+/* --- didática guiada --- */
+.goal{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:0 0 2.4rem;}
+@media (max-width:760px){ .goal{grid-template-columns:1fr;} }
+.goal .gcard{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.25rem;}
+.goal h3{font-family:var(--mono); font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--accent); margin:0 0 0.55rem; font-weight:700;}
+.goal ul{margin:0; padding-left:1.1rem; color:var(--text-dim); font-size:0.9rem;}
+.goal li{margin-bottom:0.35rem;}
+.goal p{margin:0; color:var(--text-dim); font-size:0.9rem;}
+.check{margin:0.8rem 0 0; padding:0.65rem 0.95rem; border-left:3px solid var(--accent); background:rgba(92,243,234,0.07); font-size:0.86rem; color:var(--text); border-radius:0 var(--radius) var(--radius) 0;}
+.check b{color:var(--accent); font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; margin-right:0.45rem;}
+.how{margin:0.7rem 0 0; padding-left:1.25rem; color:var(--text-dim); font-size:0.88rem;}
+.how li{margin-bottom:0.3rem;}
+.how li::marker{color:var(--accent); font-family:var(--mono);}
+details.quiz{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); margin:0.7rem 0; padding:0.9rem 1.2rem;}
+details.quiz summary{cursor:pointer; color:var(--text); font-weight:600; font-size:0.95rem;}
+details.quiz p{margin:0.7rem 0 0; color:var(--text-dim); font-size:0.9rem;}
+.callout.warn{border-left-color:var(--warn);}
+.callout.warn strong{color:var(--warn);}
+.callout ol, .callout ul{margin:0.4rem 0 0; padding-left:1.2rem; color:var(--text); font-size:0.9rem;}
+.callout li{margin-bottom:0.3rem;}
+.mini-table{width:100%; border-collapse:collapse; margin:1.2rem 0; font-size:0.88rem;}
+.mini-table th,.mini-table td{text-align:left; padding:0.6rem 0.8rem; border-bottom:1px solid var(--line); color:var(--text-dim); vertical-align:top;}
+.mini-table th{font-family:var(--mono); font-size:0.74rem; text-transform:uppercase; color:var(--text-faint); font-weight:500;}
+.tbl{overflow-x:auto;}
+@media (max-width:640px){ .tbl .mini-table{min-width:560px;} }
 </style>
 </head>
 <body>
@@ -84,6 +110,13 @@ p{color:var(--text-dim);}
     <h1>Organização e edição de clipes</h1>
     <p class="lead">Antes de qualquer efeito, o áudio bruto precisa estar limpo de erros óbvios e organizado — a parte menos empolgante do processo, e a que mais economiza tempo depois.</p>
   </div>
+
+  <div class="goal">
+    <div class="gcard"><h3>Nesta parte você vai</h3><ul><li>Montar a estrutura de pastas do projeto de áudio</li><li>Cortar silêncios e erros de fala no Waveform Editor</li><li>Suavizar as emendas e salvar uma nova versão sem perder o original</li></ul></div>
+    <div class="gcard"><h3>Tempo e material</h3><p><strong style="color:var(--text)">25 minutos</strong></p><ul style="margin-top:0.5rem"><li>A narração da Parte 02</li><li>Fones de ouvido</li></ul></div>
+    <div class="gcard"><h3>Palavras-chave</h3><ul><li><strong style="color:var(--text)">Waveform Editor:</strong> edita um arquivo só</li><li><strong style="color:var(--text)">Destrutivo:</strong> altera o arquivo de origem</li><li><strong style="color:var(--text)">Crossfade:</strong> transição curta no corte</li><li><strong style="color:var(--text)">Save As:</strong> salvar com outro nome</li></ul></div>
+  </div>
+
 
   <section>
     <div class="sec-head"><span class="sec-num">01</span><h2>Organize antes de editar</h2></div>
@@ -128,6 +161,7 @@ p{color:var(--text-dim);}
         <div>
           <h4>Abra o clipe no Waveform Editor</h4>
           <p>Duplo clique no arquivo de narração gravado na Parte 02.</p>
+        <ol class="how"><li>No painel Files, dê duplo clique em narracao_teaser_take1.</li><li>Antes de editar, salve uma cópia (File → Save As) para proteger o original.</li></ol><p class="check"><b>✔ Checkpoint</b>o arquivo abre no Waveform Editor, com a forma de onda ocupando a janela, e a cópia de segurança existe na pasta narracao/.</p>
         </div>
       </div>
       <div class="step">
@@ -135,6 +169,7 @@ p{color:var(--text-dim);}
         <div>
           <h4>Ouça a gravação inteira uma vez, anotando os problemas</h4>
           <p>Erros de fala, respirações muito altas, ruídos pontuais — antes de editar, saiba exatamente o que precisa ser cortado.</p>
+        <p class="check"><b>✔ Checkpoint</b>você tem uma lista curta, com o tempo aproximado de cada problema (por exemplo: 0:08 respiração alta; 0:21 frase errada).</p>
         </div>
       </div>
       <div class="step">
@@ -142,6 +177,7 @@ p{color:var(--text-dim);}
         <div>
           <h4>Corte os trechos problemáticos</h4>
           <p>Selecione cada trecho (<span class="kbd">Click + arrastar</span>) e delete. Use <span class="kbd">Ctrl+Z</span> sem medo — cortar é um processo de tentativa e erro.</p>
+        <ol class="how"><li>Clique e arraste sobre o trecho na forma de onda para selecioná-lo.</li><li>Pressione <span class="kbd">Delete</span>. As duas pontas se juntam.</li><li>Ouça a emenda e, se ficou ruim, desfaça com <span class="kbd">Ctrl</span>+<span class="kbd">Z</span> e tente de novo.</li></ol><p class="check"><b>✔ Checkpoint</b>a narração fica mais curta e sem os erros, e as frases seguem naturalmente uma na outra, sem pausas estranhas.</p>
         </div>
       </div>
       <div class="step">
@@ -149,6 +185,7 @@ p{color:var(--text-dim);}
         <div>
           <h4>Suavize as emendas</h4>
           <p>Nos pontos onde você cortou, aplique um crossfade curto (arraste o pequeno ícone no canto do clipe, se estiver no Multitrack, ou use Favorites → Fade In/Out no Waveform).</p>
+        <p class="check"><b>✔ Checkpoint</b>não há “cliques” nos pontos de corte: ao ouvir com fones em volume normal, a emenda passa despercebida.</p>
         </div>
       </div>
       <div class="step">
@@ -157,6 +194,7 @@ p{color:var(--text-dim);}
           <h4>Salve como uma nova versão</h4>
           <p>File → Save As, com um nome indicando que já foi editada: <span class="kbd">narracao_teaser_editada.wav</span> — mantendo o take original intacto, sem sobrescrever.</p>
           <p class="why">Por quê: se algo der errado na edição, o arquivo original continua disponível para recomeçar.</p>
+        <p class="check"><b>✔ Checkpoint</b>existem dois arquivos na pasta narracao/: o original (take1) intocado e o narracao_teaser_editada.wav.</p>
         </div>
       </div>
     </div>
@@ -166,6 +204,17 @@ p{color:var(--text-dim);}
     <strong>Isso vale para os SFX também</strong>
     <p>O mesmo processo de organizar, ouvir e cortar se aplica aos efeitos sonoros que você for buscar ou gravar na Parte 04 — nenhum SFX baixado da internet costuma vir pronto para uso direto.</p>
   </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Faça agora e teste o que aprendeu</h2></div>
+<p class="lead-in">A edição é um ofício de ouvido. Quanto mais você ouvir as emendas, mais rápido percebe os problemas.</p>
+<div class="callout"><strong>Faça agora</strong><ol><li>Monte a estrutura de pastas teaser_audio/ (narracao, sfx, musica, sessao) como mostrado na seção 01.</li><li>Limpe a sua narração seguindo o guia, e anote a duração antes e depois da edição.</li><li>Ouça apenas as emendas: volte 2 segundos antes de cada corte e confira se algum deles faz “clique”.</li></ol></div><div class="callout warn"><strong>Travou? Tente isto</strong><ul><li><strong>O corte ficou “seco” ou estalou:</strong> aplique um fade curto (poucos milissegundos) nas duas bordas do corte.</li><li><strong>Cortei demais:</strong> use <span class="kbd">Ctrl</span>+<span class="kbd">Z</span> ou abra o arquivo original e recomece. É por isso que se edita sempre uma cópia.</li><li><strong>A voz ficou “comida”:</strong> não corte a respiração inteira; deixe um pequeno resquício para o fôlego soar natural.</li></ul></div><h3 style="font-family:var(--display);margin:2rem 0 0.6rem;">Teste o que aprendeu</h3>
+<details class="quiz"><summary>1. Por que salvar como uma nova versão antes de editar?</summary><p>O Waveform Editor é destrutivo: as mudanças alteram o arquivo. Com o original guardado, dá para recomeçar se algo der errado.</p></details>
+<details class="quiz"><summary>2. Para que serve o crossfade ou fade curto nas emendas?</summary><p>Evita o “clique” que um corte seco pode produzir, suavizando a transição.</p></details>
+<details class="quiz"><summary>3. Um SFX baixado da internet pode ir direto para a sessão?</summary><p>Em geral não. Ele costuma ter silêncio no começo e no fim, ou ruído, e precisa do mesmo processo de ouvir e cortar.</p></details>
+
+  </section>
+
 </main>
 
 <footer class="foot-nav">

@@ -81,6 +81,32 @@ section{padding:3.4rem 0; border-top:1px solid var(--line);}
 .foot-nav{padding:3rem 0 3.5rem; border-top:1px solid var(--line);}
 .foot-meta{text-align:center; color:var(--text-faint); font-size:0.78rem; margin-top:1rem; font-family:var(--mono);}
 .foot-links{display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap; font-family:var(--mono); font-size:0.85rem;}
+
+/* --- didática guiada --- */
+.goal{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:0 0 2.4rem;}
+@media (max-width:760px){ .goal{grid-template-columns:1fr;} }
+.goal .gcard{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.25rem;}
+.goal h3{font-family:var(--mono); font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--accent); margin:0 0 0.55rem; font-weight:700;}
+.goal ul{margin:0; padding-left:1.1rem; color:var(--text-dim); font-size:0.9rem;}
+.goal li{margin-bottom:0.35rem;}
+.goal p{margin:0; color:var(--text-dim); font-size:0.9rem;}
+.check{margin:0.8rem 0 0; padding:0.65rem 0.95rem; border-left:3px solid var(--accent); background:rgba(92,243,234,0.07); font-size:0.86rem; color:var(--text); border-radius:0 var(--radius) var(--radius) 0;}
+.check b{color:var(--accent); font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; margin-right:0.45rem;}
+.how{margin:0.7rem 0 0; padding-left:1.25rem; color:var(--text-dim); font-size:0.88rem;}
+.how li{margin-bottom:0.3rem;}
+.how li::marker{color:var(--accent); font-family:var(--mono);}
+details.quiz{background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius); margin:0.7rem 0; padding:0.9rem 1.2rem;}
+details.quiz summary{cursor:pointer; color:var(--text); font-weight:600; font-size:0.95rem;}
+details.quiz p{margin:0.7rem 0 0; color:var(--text-dim); font-size:0.9rem;}
+.callout.warn{border-left-color:var(--warn);}
+.callout.warn strong{color:var(--warn);}
+.callout ol, .callout ul{margin:0.4rem 0 0; padding-left:1.2rem; color:var(--text); font-size:0.9rem;}
+.callout li{margin-bottom:0.3rem;}
+.mini-table{width:100%; border-collapse:collapse; margin:1.2rem 0; font-size:0.88rem;}
+.mini-table th,.mini-table td{text-align:left; padding:0.6rem 0.8rem; border-bottom:1px solid var(--line); color:var(--text-dim); vertical-align:top;}
+.mini-table th{font-family:var(--mono); font-size:0.74rem; text-transform:uppercase; color:var(--text-faint); font-weight:500;}
+.tbl{overflow-x:auto;}
+@media (max-width:640px){ .tbl .mini-table{min-width:560px;} }
 </style>
 </head>
 <body>
@@ -178,6 +204,13 @@ section{padding:3.4rem 0; border-top:1px solid var(--line);}
         <p>Nivelar, equalizar, limpar, masterizar, exportar.</p>
       </div>
     </div>
+  </section>
+
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Antes de começar: kit, tempo e roteiro de estudo</h2></div>
+<p class="lead-in">Este guia foi pensado para você fazer, e não apenas ler. Cada parte termina com um exercício “Faça agora”, um teste com resposta e dicas para quando algo travar.</p>
+<div class="goal"><div class="gcard"><h3>Você precisa de</h3><ul><li>Adobe Audition instalado</li><li>O teaser da Atividade 05 (vídeo) e os arquivos originais de trilha e efeitos</li><li>Fones de ouvido e um microfone (headset serve)</li></ul></div><div class="gcard"><h3>Tempo estimado</h3><ul><li>Parte 01: 10 min</li><li>Parte 02: 25 min</li><li>Parte 03: 25 min</li><li>Parte 04: 25 min</li><li>Parte 05: 25 min</li><li>Parte 06: 15 min</li></ul></div><div class="gcard"><h3>Como estudar</h3><ul><li>Faça as partes na ordem</li><li>Em cada parte: leia, siga o guia, confira o checkpoint</li><li>Termine com o “Faça agora” e o teste</li><li>Só avance quando o checkpoint estiver ok</li></ul></div></div><div class="callout"><strong>O produto final deste guia</strong><p>Uma sessão do Audition (.sesx) com música, efeitos e narração posicionados em trilhas separadas, sincronizada com o vídeo do teaser. Ela é o ponto de partida do Guia de Mixagem.</p></div>
   </section>
 
 </main>
